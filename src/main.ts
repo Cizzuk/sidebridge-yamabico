@@ -82,7 +82,7 @@ async function handleRequest(request: IncomingMessage, response: ServerResponse)
 
   // Error test
   if (JSON_ERROR_TEST) {
-    sendJson(response, 200, { test: "This is not valid JSON" });
+    sendJson(response, 200, { messages: "This is not valid JSON" });
     return;
   }
 
@@ -142,7 +142,7 @@ async function handleRequest(request: IncomingMessage, response: ServerResponse)
     messages: echoMessages,
     options,
   });
-  
+
   const sbResponse = createSBResponse(respObj);
   sendJson(response, 200, sbResponse);
 }
