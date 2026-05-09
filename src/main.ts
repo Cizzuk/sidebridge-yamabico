@@ -35,7 +35,7 @@ async function readBody(request: IncomingMessage): Promise<string> {
   for await (const chunk of request) {
     chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
   }
-  console.log(`\n++++++++++\nReceived request: \n${Buffer.concat(chunks).toString("utf8")}`);
+  console.log(`\nReceived request: \n${Buffer.concat(chunks).toString("utf8")}`);
   return Buffer.concat(chunks).toString("utf8");
 }
 
@@ -46,7 +46,7 @@ function sendJson(response: ServerResponse, statusCode: number, payload: unknown
     "Content-Length": Buffer.byteLength(body),
   });
   response.end(body);
-  console.log(`\n==========\nSending response: \n${body}`);
+  console.log(`\nSending response: \n${body}`);
 }
 
 function buildResponse(messages: SBMessage[], options?: SBOptions): SBResponse {
@@ -138,11 +138,11 @@ async function handleRequest(request: IncomingMessage, response: ServerResponse)
     disableSendHistory: DISABLE_SEND_HISTORY,
   });
 
-  const finalOptions = Object.keys(options).length > 0 ? createSBOptions(options) : undefined;
-  const respObj: SBResponse = { messages: echoMessages };
-  if (finalOptions !== undefined) {
-    respObj.options = finalOptions;
-  }
+  const respObj: SBResponse = createSBResponse({
+    messages: echoMessages,
+    options,
+  });
+  
   const sbResponse = createSBResponse(respObj);
   sendJson(response, 200, sbResponse);
 }
