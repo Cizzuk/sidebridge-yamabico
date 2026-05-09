@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "start": "node dist/main.js"
+    "start": "node dist/main.js",
+    "build-and-start": "npm run build && npm run start"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",
