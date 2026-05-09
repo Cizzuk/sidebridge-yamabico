@@ -39,28 +39,6 @@ export function createSBOptions(options: SBOptions = {}): SBOptions {
   return { ...options };
 }
 
-export function createSBRequest(params: {
-  chatId: string;
-  messages?: SBMessage[];
-  history?: SBMessage[];
-  sidebridge?: string;
-}): SBRequest {
-  const request: SBRequest = {
-    sidebridge: params.sidebridge ?? SIDEBRIDGE_VERSION,
-    chatId: params.chatId,
-  };
-
-  if (params.messages !== undefined) {
-    request.messages = params.messages;
-  }
-
-  if (params.history !== undefined) {
-    request.history = params.history;
-  }
-
-  return request;
-}
-
 export function createSBResponse(response: SBResponse = {}): SBResponse {
   return { ...response };
 }
